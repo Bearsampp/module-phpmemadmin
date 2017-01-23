@@ -1,7 +1,5 @@
 # Changelog
 
-### [Check compatibility with Neard](https://github.com/crazy-max/neard/wiki/appPhpMemAdmin#latest) before downloading.
-
 ## r1 (2016/07/14)
 
 * Init repo with phpMemAdmin 0.3.1

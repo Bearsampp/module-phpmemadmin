@@ -44,6 +44,7 @@
     
     <copy todir="${bundle.tmp.prep.path}/${bundle.folder}">
       <fileset dir="${bundle.srcdest}/${bundle.srcbasename}" defaultexcludes="yes" excludes="
+        app/.config.dist,
         tests/**,
         .coveralls.yml,
         .editorconfig,

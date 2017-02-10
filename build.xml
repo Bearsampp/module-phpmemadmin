@@ -45,7 +45,6 @@
     <copy todir="${bundle.tmp.prep.path}/${bundle.folder}">
       <fileset dir="${bundle.srcdest}/${bundle.srcbasename}" defaultexcludes="yes" excludes="
         tests/**,
-        .config.dist,
         .coveralls.yml,
         .editorconfig,
         .gitattributes,

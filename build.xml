@@ -1,49 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="neard-app-phpmemadmin" basedir=".">
   
-  <dirname property="project.basedir" file="${ant.file.neard-app-phpmemadmin}" />
-  <property name="root.dir" location="${project.basedir}/.." />
-  <property name="build.properties" value="${project.basedir}/build.properties" />
-  <property file="${build.properties}" />
+  <dirname property="project.basedir" file="${ant.file.neard-app-phpmemadmin}"/>
+  <property name="root.dir" location="${project.basedir}/.."/>
+  <property name="build.properties" value="${project.basedir}/build.properties"/>
+  <property file="${build.properties}"/>
   
   <!-- Neard dev -->
-  <property name="neard-dev.path" location="${root.dir}/neard-dev" />
-  <fail unless="neard-dev.path" message="Project 'neard-dev' not found in ${neard-dev.path}" />
-  <echo message="Neard dev found in ${neard-dev.path}" level="debug" /> 
+  <property name="neard-dev.path" location="${root.dir}/neard-dev"/>
+  <fail unless="neard-dev.path" message="Project 'neard-dev' not found in ${neard-dev.path}"/>
+  <echo message="Neard dev found in ${neard-dev.path}" level="debug"/> 
   
   <!-- Import build-commons.xml -->
-  <import file="${neard-dev.path}/build/build-commons.xml" />
+  <import file="${neard-dev.path}/build/build-commons.xml"/>
   <!-- Import build-bundle.xml -->
-  <import file="${neard-dev.path}/build/build-bundle.xml" />
+  <import file="${neard-dev.path}/build/build-bundle.xml"/>
   
   <target name="release.build">
-    <basename property="bundle.folder" file="${bundle.path}" />
-    <replaceproperty src="bundle.folder" dest="bundle.version" replace="${bundle.name}" with="" />
+    <basename property="bundle.folder" file="${bundle.path}"/>
+    <replaceproperty src="bundle.folder" dest="bundle.version" replace="${bundle.name}" with=""/>
     
-    <getbundlesrc name="${bundle.name}" version="${bundle.version}" propSrcDest="bundle.srcdest" propSrcFilename="bundle.srcfilename" />
+    <getbundlesrc name="${bundle.name}" version="${bundle.version}" propSrcDest="bundle.srcdest" propSrcFilename="bundle.srcfilename"/>
     
-    <propertyregex property="bundle.srcbasename" input="${bundle.srcfilename}" regexp="(.*)\.(.*)" select="\1" />
-    <if>
-      <not><available file="${bundle.srcdest}/${bundle.srcbasename}/composer.json" type="file" /></not>
-      <then>
-        <fail message="Folder not found: ${bundle.srcdest}/${bundle.srcbasename}/composer.json" />
-      </then>
-    </if>
+    <propertyregex property="bundle.srcbasename" input="${bundle.srcfilename}" regexp="(.*)\.(.*)" select="\1"/>
+    <assertfile file="${bundle.srcdest}/${bundle.srcbasename}/composer.json"/>
     
     <composer dir="${bundle.srcdest}/${bundle.srcbasename}">
       <args>
-        <arg value="update" />
-        <arg value="--no-dev" />
-        <arg value="--prefer-lowest" />
-        <arg value="--optimize-autoloader" />
+        <arg value="update"/>
+        <arg value="--no-dev"/>
+        <arg value="--prefer-lowest"/>
+        <arg value="--optimize-autoloader"/>
       </args>
     </composer>
     
-    <delete dir="${bundle.tmp.prep.path}/${bundle.folder}" />
-    <mkdir dir="${bundle.tmp.prep.path}/${bundle.folder}" />
+    <delete dir="${bundle.tmp.prep.path}/${bundle.folder}"/>
+    <mkdir dir="${bundle.tmp.prep.path}/${bundle.folder}"/>
     
     <copy todir="${bundle.tmp.prep.path}/${bundle.folder}">
-      <fileset dir="${bundle.srcdest}/${bundle.srcbasename}" defaultexcludes="yes" excludes="
+      <fileset dir="${bundle.srcdest}/${bundle.srcbasename}" excludes="
         app/.config.dist,
         tests/**,
         .coveralls.yml,
@@ -56,13 +51,11 @@
         README.md"
       />
     </copy>
-    
     <copy file="${bundle.srcdest}/${bundle.srcbasename}/web/index.php"
       tofile="${bundle.tmp.prep.path}/${bundle.folder}/web/index2.php"
       overwrite="true"/>
-    
     <copy todir="${bundle.tmp.prep.path}/${bundle.folder}" overwrite="true">
-      <fileset dir="${bundle.path}" defaultexcludes="yes" />
+      <fileset dir="${bundle.path}" defaultexcludes="yes"/>
     </copy>
   </target>
   

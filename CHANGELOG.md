@@ -4,7 +4,7 @@
 
 * Refactor modules build process (Issue neard/neard#216)
 * Remove dev dependencies
-* Move version 0.3.1 to 0.1.0.41 (reflect Travis builds on officiel repo)
+* Move version 0.3.1 to 0.1.0.41 (reflect Travis builds on official repo)
 
 ## r1 (2016/07/14)
 

@@ -5,7 +5,7 @@ This is a module of [Neard project](https://github.com/neard/neard) involving ph
 
 ## Documentation and downloads
 
-https://neard.io/modules/phpmemadmin
+https://bearsampp.com/module/phpmemadmin
 
 ## Issues
 
